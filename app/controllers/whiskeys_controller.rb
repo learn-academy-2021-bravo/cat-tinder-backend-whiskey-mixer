@@ -6,8 +6,12 @@ class WhiskeysController < ApplicationController
 
     def create
         whiskey = Whiskey.create(whiskey_params)
-        render json: whiskey
-    end
+        if whiskey.valid?
+            render json: whiskey
+        else 
+            render json: whiskey.errors, status: 422
+        end
+    end    
     
     def update
         whiskey = Whiskey.find(params[:id])

@@ -75,4 +75,58 @@ describe "PATCH /update" do
       expect(whiskeys).to be_empty
     end
   end
+  describe "meaningful status codes for create" do
+    it "does not create a whiskey without a name" do
+      whiskey_params={
+        whiskey:{
+          age: "8 years",
+          country: "US",
+          notes: "Fruits and Cinnamon, Vanilla and Caramel"
+        }
+      }
+      post '/whiskeys', params: whiskey_params
+      expect(response.status).to eq 422
+      whiskey = JSON.parse(response.body)
+      expect(whiskey['name']).to include "can't be blank"
+    end
+    it "does not create a whiskey without a age" do
+      whiskey_params={
+        whiskey:{
+          name: "Blantons Original Single Barrel",
+          country: "US",
+          notes: "Fruits and Cinnamon, Vanilla and Caramel"
+        }
+      }
+      post '/whiskeys', params: whiskey_params
+      expect(response.status).to eq 422
+      whiskey = JSON.parse(response.body)
+      expect(whiskey['age']).to include "can't be blank"
+    end
+     it "does not create a whiskey without a country" do
+      whiskey_params={
+        whiskey:{
+          name: "Blantons Original Single Barrel",
+          age: "8 years",
+          notes: "Fruits and Cinnamon, Vanilla and Caramel"
+        }
+      }
+      post '/whiskeys', params: whiskey_params
+      expect(response.status).to eq 422
+      whiskey = JSON.parse(response.body)
+      expect(whiskey['country']).to include "can't be blank"
+    end
+    it "does not create a whiskey without notes" do
+      whiskey_params={
+        whiskey:{
+          name: "Blantons Original Single Barrel",
+          age: "8 years",
+          country: "US"
+        }
+      }
+      post '/whiskeys', params: whiskey_params
+      expect(response.status).to eq 422
+      whiskey = JSON.parse(response.body)
+      expect(whiskey['notes']).to include "can't be blank"
+    end
+  end
 end
