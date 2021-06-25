@@ -50,9 +50,10 @@ describe "PATCH /update" do
       }
     }
     whiskey = Whiskey.first
-    patch "/whiskeys/#{whiskey.id}", params:new_whiskey_params
+    patch "/whiskeys/#{whiskey.id}", params: new_whiskey_params
+    whiskey = Whiskey.find whiskey.id
     expect(response).to have_http_status(200)
-    expect(whiskey.age).to eq "8 years"
+    expect(whiskey.age).to eq "7 years"
     end
   end
   
