@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2021_06_24_181422) do
 
   create_table "whiskeys", force: :cascade do |t|
     t.string "name"
-    t.string "age"
     t.string "country"
+    t.string "age"
     t.string "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
